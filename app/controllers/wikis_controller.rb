@@ -1,14 +1,20 @@
 class WikisController < ApplicationController
+
+  before_action :authenticate_member!
+
   def index
+    authorize @profile
     @wikis = Wiki.all
   end
 
   def show
+    authorize @profile
     @wiki = Wiki.find(params[:id])
   end
 
   def new
     @wiki = Wiki.new
+    authorize @profile
   end
 
   def create
@@ -26,10 +32,12 @@ class WikisController < ApplicationController
    end
 
   def edit
+    authorize @profile
     @wiki = Wiki.find(params[:id])
   end
 
   def update
+    authorize @profile
      @wiki = Wiki.find(params[:id])
      @wiki.title = params[:wiki][:title]
      @wiki.body = params[:wiki][:body]
@@ -44,6 +52,7 @@ class WikisController < ApplicationController
    end
 
    def destroy
+     authorize @profile
      @wiki = Wiki.find(params[:id])
 
      if @wiki.destroy
