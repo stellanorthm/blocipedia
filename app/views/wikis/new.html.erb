@@ -19,6 +19,11 @@
          <%= f.label :body %>
          <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
        </div>
+       <% if current_user.admin? %>
+       <div class="form-group">
+         Check for Published: <%= f.check_box :published %> (wikis are public by default)
+       </div>
+       <% end %>
        <div class="form-group">
          <%= f.submit "Save Wiki", class: 'btn btn-success' %>
        </div>

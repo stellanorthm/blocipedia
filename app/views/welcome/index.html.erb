@@ -1,4 +1,5 @@
 <br>
+<% unless user_signed_in? %>
  <div class="jumbotron">
    <h1>Blocipedia</h1>
    <p>Blocipedia is a special type of website designed to make collaboration easy.</p>
@@ -20,3 +21,13 @@
      <p>Anyone can edit almost every page, and we are encouraged to be bold!</p>
    </div>
  </div>
+ <% end %>
+<% if user_signed_in? %>
+ <div class="jumbotron">
+   <h1>Blocipedia</h1>
+   <p>Blocipedia is a special type of website designed to make collaboration easy.</p>
+   <p>
+     <%= link_to "Check Your Wikis", wikis_path, class: 'btn btn-primary' %>
+   </p>
+ </div>
+ <% end %>

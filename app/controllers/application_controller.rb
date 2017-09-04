@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def downgrade_user_to_standard
+     current_user.update_attributes(role: "Standard")
+   end
+
   include Pundit
   protect_from_forgery with: :exception
 

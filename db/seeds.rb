@@ -13,7 +13,7 @@ users = User.all
  # Create Wikis
  50.times do
    Wiki.create!(
-     title:  Faker::Lorem.words(2),
+     title:  Faker::Lorem.sentence(2),
      body:   Faker::Lorem.paragraph
    )
  end
