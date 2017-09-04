@@ -36,6 +36,6 @@ source 'https://rubygems.org'
 
  gem 'devise'
 
- gem "pundit"
+ gem 'pundit'
 
- gem "faker"
+ gem 'redcarpet'
