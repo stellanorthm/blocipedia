@@ -32,10 +32,12 @@ source 'https://rubygems.org'
   gem 'turbolinks'
   gem 'bootstrap-sass', '~> 3.3.6'
   gem 'sass-rails', '>= 3.2'
-  gem 'figaro'
+  gem 'figaro', '1.0'
 
  gem 'devise'
 
  gem 'pundit'
 
  gem 'redcarpet'
+
+ gem 'stripe'
