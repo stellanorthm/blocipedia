@@ -3,7 +3,7 @@ class WikisController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @wikis = Wiki.all
+     @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -21,6 +21,7 @@ class WikisController < ApplicationController
      authorize @wiki
      @wiki.title = params[:wiki][:title]
      @wiki.body = params[:wiki][:body]
+     @wiki.user = current_user
      if @wiki.save
        flash[:notice] = "Wiki was saved."
        redirect_to @wiki
@@ -66,6 +67,10 @@ class WikisController < ApplicationController
        privateposts = current_user.wikis.where(published: false)
        privatepost.update_attribute(:published, true)
      end
+   end
+
+   def authorize_user
+     wiki = Wiki.find(params[:id])
    end
 
 end

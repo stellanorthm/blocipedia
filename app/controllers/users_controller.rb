@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  has_many :wikis
+
   def create
     @user = User.new(params[:user])
 
