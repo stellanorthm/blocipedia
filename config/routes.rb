@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
 
+  get 'collaborators/index'
+
+  get 'collaborators/show'
+
+  get 'collaborators/edit'
+
   resources :wikis
+
+  resources :wikis do
+    resources :collaborators
+  end
 
   devise_for :users
 
