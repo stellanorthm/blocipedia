@@ -1,3 +1,4 @@
+=begin
 class WikiPolicy < ApplicationPolicy
 
   def initialize(current_user, record)
@@ -66,3 +67,4 @@ class WikiPolicy < ApplicationPolicy
    end
 
 end
+=end

@@ -7,6 +7,7 @@
        <li>Don't use the letter "A".</li>
        <li>The incessant use of hashtags will get you banned.</li>
      </ul>
+     <%= link_to "Edit Collaborators", new_wiki_collaborator_path(@wiki), class: 'btn btn-success' %>
    </div>
    <div class="col-md-8">
      <%= form_for @wiki do |f| %>
@@ -29,8 +30,3 @@
      <% end %>
    </div>
  </div>
-
- <!-- provides a link to add collaborator and shows existing collaborators -->
-<div class="container">
-  <%= link_to "Edit Collaborators", index_collaborator_path(@wiki), class: 'btn btn-success' %>
-</div>

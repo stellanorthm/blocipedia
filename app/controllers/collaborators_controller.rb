@@ -1,39 +1,38 @@
 class CollaboratorsController < ApplicationController
-  def index
-    @collaborators = @wiki.collaborators
-  end
 
   def new
-    @users = User.premium.not(current_user.id)
-    @collaborator = @wiki.collaborators.new
+    @collaborator = Collaborator.new
   end
 
   def create
-    @collaborator = @wiki.collaborators.build(collaborator_params)
-
-    respond_to do |format|
+    @collaborator_user = User.find_by_email(params[:collaborator])
+    @wiki = Wiki.find(params[:wiki_id])
+    if @wiki.collaborators.exists?(user_id: @collaborator_user.id)
+      flash[:notice] = "#{@collaborator_user.email} is already a collaborator."
+      redirect_to @wiki
+    else
+      @collaborator = Collaborator.new(user_id: @collaborator_user.id, wiki_id: @wiki.id)
       if @collaborator.save
-        format.html { redirect_to @wiki, notice: 'Collaborator was successfully created.' }
+        flash[:notice] = "Collaborator #{@collaborator_user.email} was saved."
+        redirect_to @wiki
       else
-        format.html { render :new }
+        flash.now[:alert] = "There was an error saving the collaborator. Please try again."
+        redirect_to @wiki
       end
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_collaborator
-      @collaborator = Collaborator.find(params[:id])
+  def destroy
+    @wiki = Wiki.find(params[:wiki_id])
+    @collaborator = Collaborator.find(params[:id])
+    @collaborator_user = User.find(@collaborator.user_id)
+
+    if @collaborator.destroy
+      flash[:notice] = "Collaborator #{@collaborator_user.email} was deleted."
+      redirect_to @wiki
+    else
+      flash.now[:alert] = "There was an error deleting the collaborator. Please try again."
+      redirect_to @wiki
     end
-
-    def set_wiki
-      @wiki = Wiki.friendly.find(params[:wiki_id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def collaborator_params
-      params.require(:collaborator).permit(:user_id, :wiki_id)
-    end
-
-
+  end
 end

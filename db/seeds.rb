@@ -37,6 +37,7 @@ users = User.all
  premium = User.create!(
    email:    'premium@gmailexample.com',
    password: 'helloworld'
+   role:     'premium'
  )
 
 

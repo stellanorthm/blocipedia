@@ -1,13 +1,18 @@
-<h1>New collaborator</h1>
+<% if current_user.premium? || current_user.admin? %>
+  <h3>Add Collaborators</h3>
 
-<%= form_for([@wiki, @collaborator]) do |f| %>
+  <%= form_for [@wiki, Collaborator.new] do |f| %>
+    <%= email_field_tag :collaborator %>
+    <%= f.submit "Add collaborator", class: 'btn btn-primary' %>
+    <% end %>
 
-  <div class="field">
-    <%= f.select 'user_id', options_for_select(@users.collect{ |u| [u.name, u.id] }) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <h3>Manage Collaborators</h3>
+
+  <% @wiki.collaborators.each do |c| %>
+    <% user = User.find(c.user_id) %>
+    <%= user.email %>
+    <%= link_to "Delete", wiki_collaborator_path(@wiki, c), class: 'btn btn-danger', method: :delete%>
+  <% end %>
 <% end %>
 
-<%= link_to 'Back', wikis_path %>
+<%= link_to 'Back', edit_wiki_path(@wiki) %>

@@ -3,22 +3,22 @@ class WikisController < ApplicationController
   before_action :authenticate_user!
 
   def index
-     @wikis = policy_scope(Wiki)
+     @wikis = Wiki.all
   end
 
   def show
     @wiki = Wiki.find(params[:id])
-    authorize @wiki
+    #authorize @wiki
   end
 
   def new
     @wiki = Wiki.new
-    authorize @wiki
+    #authorize @wiki
   end
 
   def create
      @wiki = Wiki.new
-     authorize @wiki
+     #authorize @wiki
      @wiki.title = params[:wiki][:title]
      @wiki.body = params[:wiki][:body]
      @wiki.user = current_user
@@ -37,7 +37,7 @@ class WikisController < ApplicationController
 
   def update
      @wiki = Wiki.find(params[:id])
-     authorize @wiki
+     #authorize @wiki
      @wiki.title = params[:wiki][:title]
      @wiki.body = params[:wiki][:body]
 
@@ -52,7 +52,7 @@ class WikisController < ApplicationController
 
    def destroy
      @wiki = Wiki.find(params[:id])
-     authorize @wiki
+     #authorize @wiki
      if @wiki.destroy
        flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
        redirect_to wikis_path
