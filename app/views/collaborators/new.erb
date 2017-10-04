@@ -1,9 +1,9 @@
 <% if current_user.premium? || current_user.admin? %>
   <h3>Add Collaborators</h3>
 
-  <%= form_for [@wiki, Collaborator.new] do |f| %>
+  <%= form_for [@wiki, @collaborator] do |f| %>
     <%= email_field_tag :collaborator %>
-    <%= f.submit "Add collaborator", class: 'btn btn-primary' %>
+    <%= c.submit "Add collaborator", class: 'btn btn-primary' %>
     <% end %>
 
   <h3>Manage Collaborators</h3>
